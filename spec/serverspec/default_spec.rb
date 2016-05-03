@@ -26,8 +26,8 @@ end
 describe file('/usr/local/etc/pkg/repos/Reallyenglish.conf') do
   it { should be_file }
   its(:content) { should match /Reallyenglish: {/ }
-  its(:content) { should match Regexp.escape('url: "pkg+http://10.1.build.reallyenglish.com/${ABI}",') }
-  its(:content) { should match /mirror_type: "srv",/ }
+  its(:content) { should match Regexp.escape('url: "http://10.1.build.reallyenglish.com/${ABI}",') }
+  its(:content) { should match /mirror_type: "http",/ }
   its(:content) { should match /signature_type: "none",/ }
   its(:content) { should match /fingerprints: "",/ }
   its(:content) { should match /enabled: yes/ }
