@@ -1,0 +1,6 @@
+---
+
+- name: Install pkg
+  pkgng:
+    name: pkg
+    state: present

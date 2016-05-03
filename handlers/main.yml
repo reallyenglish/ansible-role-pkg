@@ -1,0 +1,6 @@
+---
+
+- name: Restart pkg_config
+  service:
+    name: pkg
+    state: restarted
