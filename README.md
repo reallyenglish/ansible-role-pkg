@@ -8,12 +8,11 @@ The hos tmust be FreeBSD.
 
 # Role Variables
 
-| variable | description | default |
+| Variable | Description | Default |
 |----------|-------------|---------|
-| pkg\_conf | path to pkg.conf | /usr/local/etc/pkg.conf |
-| pkg\_repos\_dir | path to the directory of repositories | /usr/local/etc/pkg/repos |
-| pkg\_sites | dict of sites (see below) | {} |
-
+| `pkg_conf` | | `/usr/local/etc/pkg.conf` |
+| `pkg_repos_dir` | | `/usr/local/etc/pkg/repos` |
+| `pkg_sites` | | `{}` |
 
 # Dependencies
 
