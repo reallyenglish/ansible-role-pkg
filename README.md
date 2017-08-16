@@ -33,8 +33,8 @@ None
         fingerprints: /usr/share/keys/pkg
         enabled: "no"
       Reallyenglish:
-        url: "pkg+http://10.1.build.reallyenglish.com/${ABI}"
-        mirror_type: srv
+        url: "http://{{ ansible_distribution_version }}.build.reallyenglish.com/${ABI}"
+        mirror_type: http
         signature_type: "none"
         fingerprints:
         enabled: "yes"

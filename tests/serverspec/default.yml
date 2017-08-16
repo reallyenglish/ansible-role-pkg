@@ -10,7 +10,7 @@
         fingerprints: /usr/share/keys/pkg
         enabled: "no"
       Reallyenglish:
-        url: "http://10.1.build.reallyenglish.com/${ABI}"
+        url: "http://{{ ansible_distribution_version }}.build.reallyenglish.com/${ABI}"
         mirror_type: http
         signature_type: "none"
         fingerprints:
