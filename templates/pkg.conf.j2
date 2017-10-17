@@ -1,1 +1,7 @@
-syslog: true
+{% for k, v in pkg_config | dictsort() %}
+{% if v in ('yes', 'no', 'YES', 'NO', 'true', 'false') %}
+{{ k }}: {{ v }}
+{% else %}
+{{ k }}: {{ v | to_nice_json }}
+{% endif %}
+{% endfor %}

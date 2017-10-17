@@ -10,9 +10,10 @@ The hos tmust be FreeBSD.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `pkg_conf` | | `/usr/local/etc/pkg.conf` |
-| `pkg_repos_dir` | | `/usr/local/etc/pkg/repos` |
-| `pkg_sites` | | `{}` |
+| `pkg_conf` | path to `pkg.conf(5)` | `/usr/local/etc/pkg.conf` |
+| `pkg_config` | dict of `pkg.conf(5)`, which is expanded as JSON | `{}` |
+| `pkg_repos_dir` | path to repository directory | `/usr/local/etc/pkg/repos` |
+| `pkg_sites` | per site config of `pkg.conf(5)` in dict, which is expanded as JSON | `{}` |
 
 # Dependencies
 
@@ -25,6 +26,13 @@ None
   roles:
     - ansible-role-pkg
   vars:
+    pkg_config:
+      FETCH_TIMEOUT: 300
+      FETCH_RETRY: 5
+      SYSLOG: "true"
+      REPOS_DIR:
+        - /etc/pkg/
+        - /usr/local/etc/pkg/repos/
     pkg_repos:
       FreeBSD:
         url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest"
@@ -35,7 +43,7 @@ None
       Reallyenglish:
         url: "http://{{ ansible_distribution_version }}.build.reallyenglish.com/${ABI}"
         mirror_type: http
-        signature_type: "none"
+        signature_type: 'none'
         fingerprints:
         enabled: "yes"
 ```

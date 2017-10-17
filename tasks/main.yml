@@ -3,9 +3,7 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
-- include: install-FreeBSD.yml
-  when: ansible_os_family == 'FreeBSD'
-
+# XXX create configuration files before install tasks
 - name: Create pkg.conf
   template:
     src: pkg.conf.j2
@@ -23,3 +21,6 @@
     dest: "{{ pkg_repos_dir }}/{{ item.key }}.conf"
     mode: 0644
   with_dict: "{{ pkg_repos }}"
+
+- include: install-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'

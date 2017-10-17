@@ -2,6 +2,13 @@
   roles:
     - ansible-role-pkg
   vars:
+    pkg_config:
+      FETCH_TIMEOUT: 300
+      FETCH_RETRY: 5
+      SYSLOG: "true"
+      REPOS_DIR:
+        - /etc/pkg/
+        - /usr/local/etc/pkg/repos/
     pkg_repos:
       FreeBSD:
         url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest"
@@ -12,6 +19,6 @@
       Reallyenglish:
         url: "http://{{ ansible_distribution_version }}.build.reallyenglish.com/${ABI}"
         mirror_type: http
-        signature_type: "none"
+        signature_type: 'none'
         fingerprints:
         enabled: "yes"
