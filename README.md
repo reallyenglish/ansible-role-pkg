@@ -13,7 +13,7 @@ The hos tmust be FreeBSD.
 | `pkg_conf` | path to `pkg.conf(5)` | `/usr/local/etc/pkg.conf` |
 | `pkg_config` | dict of `pkg.conf(5)`, which is expanded as JSON | `{}` |
 | `pkg_repos_dir` | path to repository directory | `/usr/local/etc/pkg/repos` |
-| `pkg_sites` | per site config of `pkg.conf(5)` in dict, which is expanded as JSON | `{}` |
+| `pkg_repos` | per site config of `pkg.conf(5)` in dict, which is expanded as JSON | `{}` |
 
 # Dependencies
 
