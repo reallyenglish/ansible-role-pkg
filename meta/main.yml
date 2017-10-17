@@ -23,5 +23,4 @@ galaxy_info:
 
   galaxy_tags:
     - pkg
-#dependencies:
-#  - { role: username.common, some_parameter: 3 }
+dependencies:

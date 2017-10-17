@@ -1,8 +1,11 @@
-# Managed by ansible
 {{ item.key }}: {
-  url: "{{ item.value.url }}",
-  mirror_type: "{{ item.value.mirror_type }}",
-  signature_type: "{{ item.value.signature_type }}",
-  fingerprints: "{{ item.value.fingerprints }}",
-  enabled: {{ item.value.enabled }}
+{% for k, v in pkg_repos[item.key] | dictsort() %}
+{% if v in ("yes", "no", "YES", "NO", "true", "false") %}
+{{ k }}: {{ v }},
+{% elif v == None %}
+{{ k }}: "NONE",
+{% else %}
+{{ k }}: {{ v | to_json }},
+{% endif %}
+{% endfor %}
 }
