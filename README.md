@@ -4,7 +4,7 @@ Configure pkg(8)
 
 # Requirements
 
-The hos tmust be FreeBSD.
+The host must be FreeBSD.
 
 # Role Variables
 
