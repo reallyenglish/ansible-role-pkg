@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible-role-pkg
 
-- name: Raise exception if ansible_os_family is not FreeBSD
+- name: Fail if ansible_os_family is not FreeBSD
   fail:
     msg: "Platform {{ ansible_os_family }} is not supported"
   when:
