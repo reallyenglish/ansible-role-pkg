@@ -16,8 +16,8 @@
         signature_type: fingerprints
         fingerprints: /usr/share/keys/pkg
         enabled: "no"
-      Reallyenglish:
-        url: "http://{{ ansible_distribution_version }}.build.reallyenglish.com/${ABI}"
+      isc:
+        url: "http://pkg0.isc.freebsd.org/${ABI}/latest"
         mirror_type: http
         signature_type: 'none'
         fingerprints:

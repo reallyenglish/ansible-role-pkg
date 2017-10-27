@@ -31,12 +31,12 @@ describe file("/usr/local/etc/pkg/repos/FreeBSD.conf") do
   end
 end
 
-describe file("/usr/local/etc/pkg/repos/Reallyenglish.conf") do
+describe file("/usr/local/etc/pkg/repos/isc.conf") do
   it { should be_file }
   its(:content_as_yaml) do
     should include(
-      "Reallyenglish" => include(
-        "url" => "http://10.3.build.reallyenglish.com/${ABI}",
+      "isc" => include(
+        "url" => "http://pkg0.isc.freebsd.org/${ABI}/latest",
         "mirror_type" => "http",
         "signature_type" => "none",
         "fingerprints" => "NONE",
