@@ -2,3 +2,4 @@ pkg_conf: /usr/local/etc/pkg.conf
 pkg_config: {}
 pkg_repos_dir: /usr/local/etc/pkg/repos
 pkg_repos: {}
+pkg_pubkeys: []

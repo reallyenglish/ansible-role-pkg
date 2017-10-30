@@ -3,6 +3,9 @@ require "serverspec"
 
 package = "pkg"
 config  = "/usr/local/etc/pkg.conf"
+key_dir = "/usr/local/etc/pkg/keys"
+default_user = "root"
+default_group = "wheel"
 
 describe package(package) do
   it { should be_installed }
@@ -43,5 +46,25 @@ describe file("/usr/local/etc/pkg/repos/isc.conf") do
         "enabled" => true
       )
     )
+  end
+end
+
+describe file(key_dir) do
+  it { should exist }
+  it { should be_directory }
+  it { should be_mode 755 }
+  it { should be_owned_by default_user }
+  it { should be_grouped_into default_group }
+end
+
+%w(my your).each do |f|
+  describe file("#{key_dir}/#{f}.pub") do
+    it { should exist }
+    it { should be_file }
+    it { should be_mode 644 }
+    it { should be_owned_by default_user }
+    it { should be_grouped_into default_group }
+    its(:content) { should match(/^-----BEGIN PUBLIC KEY-----$/) }
+    its(:content) { should match(/^#{Regexp.escape("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwoMg0XK2SdEaz8b8O6rY")}$/) }
   end
 end
