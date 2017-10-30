@@ -9,25 +9,6 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
-# XXX create configuration files before install tasks
-- name: Create pkg.conf
-  template:
-    src: pkg.conf.j2
-    dest: "{{ pkg_conf }}"
-
-- name: Create repo dir
-  file:
-    path: "{{ pkg_repos_dir }}"
-    state: directory
-    mode: 0755
-
-- name: Create repository conf
-  template:
-    src: site.conf.j2
-    dest: "{{ pkg_repos_dir }}/{{ item.key }}.conf"
-    mode: 0644
-  with_dict: "{{ pkg_repos }}"
-
 - name: Assert pkg_pubkeys has a valid array of keys
   assert:
     msg: items in pkg_pubkeys must have `path` and `state` as keys, and `state` must be either `present` or `absent`
@@ -47,6 +28,25 @@
   when:
     - "item.state == 'present'"
   with_items: "{{ pkg_pubkeys }}"
+
+# XXX create configuration files before install tasks
+- name: Create pkg.conf
+  template:
+    src: pkg.conf.j2
+    dest: "{{ pkg_conf }}"
+
+- name: Create repo dir
+  file:
+    path: "{{ pkg_repos_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Create repository conf
+  template:
+    src: site.conf.j2
+    dest: "{{ pkg_repos_dir }}/{{ item.key }}.conf"
+    mode: 0644
+  with_dict: "{{ pkg_repos }}"
 
 - name: Create directories for keys
   file:
