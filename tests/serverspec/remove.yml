@@ -3,10 +3,10 @@
     - ansible-role-pkg
   pre_tasks:
     - file:
-        dest: /usr/local/etc/pkg
+        dest: "{{ remove_me | dirname }}"
         state: directory
     - copy:
-        dest: /usr/local/etc/pkg/none.pub
+        dest: "{{ remove_me }}"
         content: |
           -----BEGIN PUBLIC KEY-----
           MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwoMg0XK2SdEaz8b8O6rY
@@ -18,6 +18,7 @@
           cQIDAQAB
           -----END PUBLIC KEY-----
   vars:
+    remove_me: /usr/local/etc/pkg/keys/none.pub
     pkg_config:
       FETCH_TIMEOUT: 300
       FETCH_RETRY: 5
@@ -63,5 +64,5 @@
           AKB/Dxl74fmQT+yvNKk9/U8mo9zVoVw0H7dphgglS2fXXvyFIn9TIVGS5zbe2C4s
           cQIDAQAB
           -----END PUBLIC KEY-----
-      - path: /usr/local/etc/pkg/keys/none.pub
+      - path: "{{ remove_me }}"
         state: absent
