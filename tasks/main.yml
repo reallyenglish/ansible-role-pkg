@@ -9,6 +9,26 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Assert pkg_pubkeys has a valid array of keys
+  assert:
+    msg: items in pkg_pubkeys must have `path` and `state` as keys, and `state` must be either `present` or `absent`
+    that:
+      - "'path' in item"
+      - item.path | length > 0
+      - "'state' in item"
+      - "item.state == 'present' or item.state == 'absent'"
+  with_items: "{{ pkg_pubkeys }}"
+
+- name: Assert items in pkg_pubkeys has content when state is present
+  assert:
+    msg: items in pkg_pubkeys must have `content` as key when `state` is `present`
+    that:
+      - "'content' in item"
+      - item.content | length > 0
+  when:
+    - "item.state == 'present'"
+  with_items: "{{ pkg_pubkeys }}"
+
 # XXX create configuration files before install tasks
 - name: Create pkg.conf
   template:
@@ -27,5 +47,31 @@
     dest: "{{ pkg_repos_dir }}/{{ item.key }}.conf"
     mode: 0644
   with_dict: "{{ pkg_repos }}"
+
+- name: Create directories for keys
+  file:
+    dest: "{{ item.path | dirname }}"
+    mode: 0755
+    state: directory
+  when:
+    - "item.state == 'present'"
+  with_items: "{{ pkg_pubkeys }}"
+
+- name: Create pubkeys
+  template:
+    src: pubkey.j2
+    dest: "{{ item.path }}"
+    validate: openssl rsa -inform PEM -pubin -noout -in %s
+  when:
+    - "item.state == 'present'"
+  with_items: "{{ pkg_pubkeys }}"
+
+- name: Remove pubkeys
+  file:
+    dest: "{{ item.path }}"
+    state: absent
+  when:
+    - "item.state == 'absent'"
+  with_items: "{{ pkg_pubkeys }}"
 
 - include: install-FreeBSD.yml
