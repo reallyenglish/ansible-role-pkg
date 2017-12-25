@@ -57,7 +57,7 @@ describe file(key_dir) do
   it { should be_grouped_into default_group }
 end
 
-%w(my your).each do |f|
+%w[my your].each do |f|
   describe file("#{key_dir}/#{f}.pub") do
     it { should exist }
     it { should be_file }
